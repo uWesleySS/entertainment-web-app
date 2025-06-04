@@ -1,0 +1,28 @@
+<section class="trending">
+  <h2>Trending</h2>
+  <div class="carousel">
+    <article class="card" *ngFor="let show of shows">
+      <img
+        [src]="getImage(show, 'regular', 'large')"
+        alt="{{ show.title }}"
+        class="card__image"
+      />
+      <div class="card__content">
+        <ul class="card__details">
+          <li class="card__year">{{ show.year }}</li>
+          •
+          <li class="card__category">
+            <img src="assets/icon-category-movie.svg" alt="Ícone de Filme" />
+            {{ show.category }}
+          </li>
+          •
+          <li class="card__rating">{{ show.rating }}</li>
+        </ul>
+        <h3 class="card__title">{{ show.title }}</h3>
+      </div>
+      <button class="card__favorite" title="Adicionar aos favoritos">
+        <img src="assets/icon-bookmark-empty1.svg" alt="Favoritar" />
+      </button>
+    </article>
+  </div>
+</section>

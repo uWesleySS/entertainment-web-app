@@ -1,0 +1,89 @@
+.trending {
+  height: 295px;
+  margin: 164px;
+  font-family: "Outfit", sans-serif;
+  h2 {
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 40px;
+    font-weight: 300;
+  }
+
+  .carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 10px;
+    scroll-behavior: smooth;
+
+    .card {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      width: 470px;
+      height: 230px;
+      border-radius: 8px;
+
+      &__image {
+        width: 470px;
+        height: 230px;
+        display: block;
+      }
+
+      &__content {
+        padding: 22px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(to bottom, #00000000, #000000b9);
+
+        .card__details {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 15px;
+          font-weight: 300;
+          opacity: 0.75;
+          color: #fff;
+          padding: 0;
+          margin: 0;
+
+          li {
+            display: flex;
+            align-items: center;
+          }
+
+          .card__category img {
+            margin-right: 6px;
+          }
+        }
+        .card__title {
+          font-size: 24px;
+          margin: 8px 0 0;
+          font-weight: 400;
+          color: #fff;
+        }
+      }
+
+      &__favorite {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+
+        width: 32px;
+        height: 32px;
+        background: #10141e;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        border-radius: 50%;
+        opacity: 50%;
+
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
