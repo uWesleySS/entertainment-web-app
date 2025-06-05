@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ShowService } from 'src/app/services/show.service';
 
 @Component({
@@ -7,33 +7,32 @@ import { ShowService } from 'src/app/services/show.service';
   styleUrls: ['./trending.component.scss'],
 })
 export class TrendingComponent implements OnInit {
+  @ViewChild('carousel') carousel!: ElementRef;
   shows: any[] = [];
 
   constructor(private showService: ShowService) {}
 
   ngOnInit(): void {
     this.showService.getShows().subscribe((data) => {
-      this.shows = data;
+      this.shows = data.filter((x: any )=> x.isTrending);
     });
   }
-
-  getImage(
-    show: any,
-    type: 'trending' | 'regular',
-    size: 'small' | 'medium' | 'large'
-  ): string {
-    if (
-      !show ||
-      !show.thumbnail ||
-      !show.thumbnail[type] ||
-      !show.thumbnail[type][size]
-    ) {
-      console.warn(
-        `Imagem não encontrada para ${show?.title}: Tipo - ${type}, Tamanho - ${size}`
-      );
-      return 'assets/default-image.jpg'; // 🔹 Fallback para imagem padrão
+  scrollLeft(): void {
+    if (this.carousel.nativeElement.scrollLeft <= 0) {
+      this.carousel.nativeElement.scrollLeft = 0;
+    } else {
+      this.carousel.nativeElement.scrollBy({
+        left: -100000,
+        behavior: 'smooth',
+      });
     }
+  }
 
-    return show.thumbnail[type][size];
+  scrollRight(): void {
+    this.carousel.nativeElement.scrollBy({ left: 500, behavior: 'smooth' });
+  }
+
+  getImage(urlImage: any): string {
+    return require(urlImage);
   }
 }

@@ -1,0 +1,42 @@
+.search-container {
+  position: fixed;
+  top: 0;
+  display: flex;
+  left: 11%;
+  align-items: center;
+  border-radius: 8px;
+  padding: 10px 10px;
+  width: 85%;
+  margin: 50px auto;
+
+  input {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    padding: 10px;
+    outline: none;
+    text-align: left;
+    transition: border-bottom 0.3s ease-in-out;
+    caret-color: red;
+    &:focus {
+      border-bottom: 1px solid #5a698f;
+    }
+    
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    img {
+      width: 32px;
+      height: 32;
+    }
+  }
+}
