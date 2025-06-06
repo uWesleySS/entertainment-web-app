@@ -2,8 +2,8 @@
 <section class="trending">
   <h2>Trending</h2>
   <div class="carousel">
-    <article class="card" *ngFor="let show of shows">
-      <img src="assets/thumbnails/beyond-earth-trending-large.jpg"
+    <article class="card" *ngFor="let show of trendingShows">
+      <img [src]="show.imageUrl"
         alt="{{ show.title }}"
         class="card__image"
       />
