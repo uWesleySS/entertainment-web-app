@@ -1,21 +1,22 @@
-export interface DriveImageIds {
-  small?: string;
+export interface ThumbnailImage {
+  small: string;
   medium?: string;
-  large?: string;
+  large: string;
 }
 
-export interface DriveThumbnails {
-  trending?: DriveImageIds;
-  regular?: DriveImageIds;
+export interface Thumbnail {
+  trending?: ThumbnailImage;
+  regular: ThumbnailImage;
 }
 
 export interface Show {
   title: string;
+  thumbnail: Thumbnail;
   year: number;
   category: string;
   rating: string;
   isBookmarked: boolean;
   isTrending: boolean;
-  driveThumbnails?: DriveThumbnails;
+
   imageUrl?: string;
 }

@@ -1,30 +1,36 @@
 .header {
+  z-index: 100;
   position: fixed;
   top: 32px;
   left: 32px;
   width: 96px;
-  height: calc(96vh - 80px);
-  background-color: #161D2F;
+  height: calc(100vh - 64px);
+  background-color: #161d2f;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 10px;
-  gap: 30px;
+  padding: 35px 0;
   overflow: hidden;
 
+  .top-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
   .logo {
-    margin-top: 20px;
     img {
       width: 32px;
       height: 26px;
     }
   }
+
   .nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
 
     .nav-list {
       list-style: none;
@@ -41,8 +47,8 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 50px;
-          height: 50px;
+          width: 48px;
+          height: 48px;
           border-radius: 12px;
           background-color: transparent;
           transition: background-color 0.3s, transform 0.2s ease-in-out;
