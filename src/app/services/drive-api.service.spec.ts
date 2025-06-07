@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ShowService } from './show.service';
+import { DriveApiService } from './drive-api.service';
 
-describe('ShowService', () => {
-  let service: ShowService;
+describe('DriveApiService', () => {
+  let service: DriveApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ShowService);
+    service = TestBed.inject(DriveApiService);
   });
 
   it('should be created', () => {
