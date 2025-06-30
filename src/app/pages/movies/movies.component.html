@@ -1,0 +1,40 @@
+<app-search-bar
+  (search)="onSearch($event)"
+  placeholderText="Search for movies"
+></app-search-bar>
+
+<ng-container *ngIf="!showSearchResults">
+  <section class="movies-section">
+    <h2>Movies</h2>
+    <div class="movies-grid">
+      <app-thumbnail
+        *ngFor="let media of movies$ | async"
+        [media]="media"
+        (bookmarkToggled)="onToggleBookmark($event)"
+      >
+      </app-thumbnail>
+    </div>
+    <p *ngIf="(movies$ | async)?.length === 0">No movies available.</p>
+  </section>
+</ng-container>
+
+<ng-container *ngIf="showSearchResults">
+  <section class="search-results-section">
+    <h2>
+      Found {{ (searchResults$ | async)?.length }} results for '{{
+        searchQuery
+      }}'
+    </h2>
+    <div class="search-results-grid">
+      <app-thumbnail
+        *ngFor="let media of searchResults$ | async"
+        [media]="media"
+        (bookmarkToggled)="onToggleBookmark($event)"
+      >
+      </app-thumbnail>
+    </div>
+    <p *ngIf="(searchResults$ | async)?.length === 0 && searchQuery.length > 0">
+      No results found for '{{ searchQuery }}'.
+    </p>
+  </section>
+</ng-container>

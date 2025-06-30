@@ -1,0 +1,42 @@
+<app-search-bar
+  (search)="onSearch($event)"
+  placeholderText="Search for bookmarked shows"
+></app-search-bar>
+
+<ng-container *ngIf="!showSearchResults">
+  <section class="bookmarked-section">
+    <h2>Bookmarked Shows</h2>
+    <div class="bookmarked-grid">
+      <app-thumbnail
+        *ngFor="let media of bookmarkedShows$ | async"
+        [media]="media"
+        (bookmarkToggled)="onToggleBookmark($event)"
+      >
+      </app-thumbnail>
+    </div>
+    <p *ngIf="(bookmarkedShows$ | async)?.length === 0">
+      No bookmarked shows available.
+    </p>
+  </section>
+</ng-container>
+
+<ng-container *ngIf="showSearchResults">
+  <section class="search-results-section">
+    <h2>
+      Found {{ (searchResults$ | async)?.length }} results for '{{
+        searchQuery
+      }}'
+    </h2>
+    <div class="search-results-grid">
+      <app-thumbnail
+        *ngFor="let media of searchResults$ | async"
+        [media]="media"
+        (bookmarkToggled)="onToggleBookmark($event)"
+      >
+      </app-thumbnail>
+    </div>
+    <p *ngIf="(searchResults$ | async)?.length === 0 && searchQuery.length > 0">
+      No results found for '{{ searchQuery }}'.
+    </p>
+  </section>
+</ng-container>

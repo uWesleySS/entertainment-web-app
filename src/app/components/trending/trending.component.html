@@ -1,13 +1,7 @@
 <section class="trending">
   <h2>Trending</h2>
   <div class="carousel" #carouselContainer>
-    <article
-      class="card"
-      *ngFor="let show of trendingShows; let i = index"
-      [class.hover-active]="cardHoverState[i]"
-      (mousemove)="onMouseMove($event, i)"
-      (mouseleave)="onMouseLeave(i)"
-    >
+    <article class="card" *ngFor="let show of trendingShows">
       <img [src]="show.imageUrl" alt="{{ show.title }}" class="card__image" />
       <div class="card__overlay">
         <div class="card__play-button">
@@ -19,7 +13,7 @@
         <ul class="card__details">
           <li class="card__year">{{ show.year }}</li>
           <li class="card__category">
-            <img src="assets/icon-category-movie.svg" alt="Ícone de Filme" />
+            <img [src]="show.category === 'Movie' ? 'assets/icon-category-movie.svg' : 'assets/icon-category-tv.svg'" alt="{{ show.category }}" />
             {{ show.category }}
           </li>
           <li class="card__rating">{{ show.rating }}</li>
@@ -27,16 +21,11 @@
         <h3 class="card__title">{{ show.title }}</h3>
       </div>
 
-      <button class="card__favorite" title="Adicionar aos favoritos">
+      <button class="card__favorite" title="Adicionar aos favoritos" (click)="onToggleBookmark(show.title)">
         <img
-          src="assets/icon-bookmark-empty1.svg"
+          [src]="show.isBookmarked ? 'assets/icon-bookmark-full.svg' : 'assets/icon-bookmark-empty1.svg'"
           alt="Favoritar"
           class="card__favorite-icon"
-          [attr.src]="
-            show.isBookmarked
-              ? 'assets/icon-bookmark-full.svg'
-              : 'assets/icon-bookmark-empty1.svg'
-          "
         />
       </button>
     </article>

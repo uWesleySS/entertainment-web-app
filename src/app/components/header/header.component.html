@@ -1,23 +1,49 @@
 <header class="header">
   <div class="top-section">
-    <a class="logo" href="#"><img src="assets/logo.svg" alt="Logo" /></a>
+    <a class="logo" routerLink="/home"
+      ><img src="assets/logo.svg" alt="Logo"
+    /></a>
     <nav class="nav">
       <ul class="nav-list">
         <li>
-          <a href="#"><img src="assets/icon-nav-home.svg" alt="Home" /></a>
+          <a
+            routerLink="/home"
+            routerLinkActive="active-link"
+            ariaCurrentWhenActive="page"
+            title="Home"
+          >
+            <img src="assets/icon-nav-home.svg" alt="Home" />
+          </a>
         </li>
         <li>
-          <a href="#"><img src="assets/icon-nav-movies.svg" alt=" Movies" /></a>
+          <a
+            routerLink="/movies"
+            routerLinkActive="active-link"
+            ariaCurrentWhenActive="page"
+            title="Movies"
+          >
+            <img src="assets/icon-nav-movies.svg" alt="Movies" />
+          </a>
         </li>
         <li>
-          <a href="#"
-            ><img src="assets/icon-nav-tv-series.svg" alt=" Series"
-          /></a>
+          <a
+            routerLink="/tv-series"
+            routerLinkActive="active-link"
+            ariaCurrentWhenActive="page"
+            title="TV Series"
+          >
+            <img src="assets/icon-nav-tv-series.svg" alt="TV Series" />
+          </a>
         </li>
         <li>
-          <a href="#"
-            ><img src="assets/icon-nav-bookmark.svg" alt="Bookmark"
-          /></a>
+          <a
+            routerLink="/bookmarked"
+            routerLinkActive="active-link"
+            ariaCurrentWhenActive="page"
+            title="Bookmarked Shows"
+          >
+            <img src="assets/icon-nav-bookmark.svg" alt="Bookmark" />
+          </a>
         </li>
       </ul>
     </nav>

@@ -6,8 +6,8 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Show } from '../../models/show.model';
+import { MovieService } from 'src/app/services/movie.service'; // Importe o MovieService
+import { Media } from 'src/app/models/media.model'; // Importe a interface Media
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -16,76 +16,26 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './trending.component.html',
   styleUrls: ['./trending.component.scss'],
 })
-export class TrendingComponent implements OnInit {
-  trendingShows: Show[] = [];
+export class TrendingComponent implements OnInit, AfterViewInit, OnDestroy {
+  trendingShows: Media[] = []; // Use a interface Media
   loadingShows: boolean = true;
   errorLoadingShows: string | null = null;
-  cardHoverState: { [key: string]: boolean } = {};
 
   @ViewChild('carouselContainer')
   carouselContainer!: ElementRef<HTMLDivElement>;
 
   private destroy$ = new Subject<void>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private movieService: MovieService) {}
 
   ngOnInit(): void {
-    this.loadTrendingShows();
-  }
-
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  loadTrendingShows(): void {
-    this.loadingShows = true;
-    this.errorLoadingShows = null;
-
-    this.http.get<Show[]>('assets/movies.json').subscribe({
-      next: (allShows: Show[]) => {
-        this.trendingShows = allShows
-          .filter((show) => show.isTrending && show.thumbnail?.trending?.large)
-          .map((show) => {
-            const imageUrlToUse = show.thumbnail?.trending?.large;
-            return {
-              ...show,
-              imageUrl: imageUrlToUse || 'assets/placeholder.jpg',
-            } as Show;
-          });
-
-        
-        this.trendingShows.forEach((show, index) => {
-         
-          this.cardHoverState[index] = false; 
-        });
-
+    this.movieService.getTrendingShows().subscribe({
+      next: (shows) => {
+        this.trendingShows = shows;
         this.loadingShows = false;
-
-       
-        setTimeout(() => {
-          if (this.carouselContainer) {
-            this.setupCarouselScroll();
-            console.log(
-              'Scroll do carrossel configurado após o carregamento dos dados.'
-            );
-            
-            console.log(
-              'Carousel clientWidth:',
-              this.carouselContainer.nativeElement.clientWidth
-            );
-            console.log(
-              'Carousel scrollWidth:',
-              this.carouselContainer.nativeElement.scrollWidth
-            );
-          } else {
-            console.warn('Elemento carouselContainer não encontrado.');
-          }
-        }, 0); 
       },
       error: (err) => {
-        console.error('Erro ao carregar shows:', err);
+        console.error('Erro ao carregar shows em destaque:', err);
         this.errorLoadingShows =
           'Não foi possível carregar o conteúdo em destaque. Tente novamente mais tarde.';
         this.loadingShows = false;
@@ -93,19 +43,30 @@ export class TrendingComponent implements OnInit {
     });
   }
 
-  
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.carouselContainer) {
+        this.setupCarouselScroll();
+      } else {
+        console.warn(
+          'Elemento carouselContainer não encontrado em AfterViewInit.'
+        );
+      }
+    }, 0);
+  }
 
-  
-  onMouseMove(event: MouseEvent, index: number): void {}
-  onMouseLeave(index: number): void {}
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  onToggleBookmark(title: string): void {
+    this.movieService.toggleBookmark(title);
+  }
 
   setupCarouselScroll(): void {
     const carousel = this.carouselContainer.nativeElement;
     if (carousel) {
-      console.log(
-        'Tentando anexar o listener de wheel ao carrossel:',
-        carousel
-      );
       fromEvent<WheelEvent>(carousel, 'wheel')
         .pipe(takeUntil(this.destroy$))
         .subscribe((event) => {

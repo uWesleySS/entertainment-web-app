@@ -1,14 +1,11 @@
 .trending {
-  padding: 200px 165px 0;
-  
+  margin: 165px 165px 0;
 
   position: relative;
   overflow: visible;
   h2 {
-    position: fixed;
-    top: 120px;
+    margin: 20px 10px;
 
-    padding: 10px;
     color: #fff;
     font-size: 40px;
     font-weight: 300;
@@ -30,12 +27,10 @@
     &::-webkit-scrollbar {
       display: none;
     }
-    padding-left: 0px;
 
     .card {
       width: 470px;
 
-      /* scroll-snap-align: start; */
       height: 230px;
       border-radius: 8px;
       position: relative;

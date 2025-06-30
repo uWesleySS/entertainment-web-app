@@ -15,7 +15,7 @@ interface DriveImage {
   providedIn: 'root',
 })
 export class DriveApiService {
-  private backendUrl = environment.backendUrl;
+  private backendUrl = environment;
 
   constructor(private http: HttpClient) {}
 

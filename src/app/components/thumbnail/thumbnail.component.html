@@ -1,0 +1,25 @@
+<div class="thumbnail-card">
+  <div class="thumbnail-image-container">
+    <img [src]="media.thumbnail.regular.large" [alt]="media.title" class="thumbnail-image">
+    <button class="bookmark-button" (click)="onToggleBookmark()">
+      <img [src]="media.isBookmarked ? 'assets/icon-bookmark-full.svg' : 'assets/icon-bookmark-empty1.svg'" alt="Bookmark icon">
+    </button>
+    <div class="thumbnail-overlay">
+      <div class="thumbnail-play-button">
+        <img src="assets/icon-play.svg" alt="Play icon" />
+        <span>Play</span>
+      </div>
+    </div>
+  </div>
+  <div class="thumbnail-details">
+    <div class="thumbnail-meta">
+      <span>{{ media.year }}</span>
+      <span>•</span>
+      <img [src]="media.category === 'Movie' ? 'assets/icon-category-movie.svg' : 'assets/icon-category-tv.svg'" alt="{{ media.category }}" class="category-icon">
+      <span>{{ media.category }}</span>
+      <span>•</span>
+      <span>{{ media.rating }}</span>
+    </div>
+    <h3 class="thumbnail-title">{{ media.title }}</h3>
+  </div>
+</div>
